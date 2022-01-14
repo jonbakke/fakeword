@@ -3,6 +3,16 @@
 ## Description
 `fakeword` generates strings that resemble words of American English. Consecutive letters are selected based on digraph frequency: certain letters are more or less likely to follow other certain letters, and `fakeword` reverses this by taking a given letter and using a random number to come up with the following letter in an attempt to mimic actual language. If I recall correctly, the original data set is from an analysis of 19th century telegraphs used by U.S. government officials, so it is hardly representative of modern English or human language generally. Yet it might be a useful starting point for writers of speculative fiction, generators of memorable passwords, designers of alternative keyboard layouts, or designers weary of lorem ipsum.
 
+# Wordle
+By the way, if you like the puzzle wordle, you might not-quite-cheat by trying something like:
+```
+fakeword 100000 | tr ' ' '\n' | sed -n '/^.....$/p' | tr '\n' ' '
+```
+...then exchange the five periods between the caret `^` and dollar `$` for the characters you know, such as:
+```
+fakeword 100000 | tr ' ' '\n' | sed -n '/^a...e.$/p' | tr '\n' ' '
+```
+
 ## Platforms
 Seems to work on GNU/Linux and Darwin. Haven't tested it yet on other BSDs; the only platform-dependent code that I've identified is for seeding `random()`, where `srandomdev()` is used where the GNU library is unavailable.
 
